@@ -21,15 +21,19 @@
     <script type="text/javascript" src="https://api.sphere.gistda.or.th/map/?key=test2022"></script>
     <script>
         var map
+        var marker = new sphere.Marker({ lon: 101.2, lat: 12.8 });
         function init() {
             map = new sphere.Map({
                 placeholder: document.getElementById('map')
             });
 
-            map.Event.bind(sphere.EventName.Location, function (overlay) {
-                var location = map.location(); // Cross hair location
-                console.log(`Lat: ${location.lat} Lon: ${location.lon}`);
+            map.Event.bind(sphere.EventName.Ready, function (overlay) {
+                map.Overlays.add(marker)
             });
+        }
+
+        function removeMarker() {
+            map.Overlays.remove(marker);
         }
     </script>
 </head>
