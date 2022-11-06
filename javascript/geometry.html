@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Map Sample | sphere geometry</title>
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0px;
+            height: 100%;
+        }
+
+        #map {
+            height: 80%;
+        }
+
+        #menu {
+            height: 20%;
+        }
+    </style>
+    <script type="text/javascript" src="https://api.sphere.gistda.or.th/map/?key=test2022"></script>
+    <script>
+        var map
+        var polyline = new sphere.Polyline([
+            { lon: 100, lat: 14 },
+            { lon: 101, lat: 15 },
+            { lon: 102, lat: 14 },
+        ], {
+            title: 'Polyline',
+            detail: '-',
+            label: 'Polyline',
+            lineWidth: 4,
+            lineColor: 'rgba(255, 0, 0, 0.8)'
+        });
+
+        var polygon = new sphere.Polygon([
+            { lon: 99, lat: 14 },
+            { lon: 100, lat: 13 },
+            { lon: 102, lat: 13 },
+            { lon: 103, lat: 14 }
+        ], {
+            title: 'Polygon', //Popup title
+            detail: '-', //Popup detail
+            label: 'Polygon', //Show label
+            lineWidth: 2,
+            lineColor: 'rgba(0, 0, 0, 1)',
+            fillColor: 'rgba(255, 0, 0, 0.4)',
+            editable: true,
+        });
+
+        map.Overlays.add(polygon);
+
+        function init() {
+            map = new sphere.Map({
+                placeholder: document.getElementById('map'),
+                zoom: 6
+            });
+
+            map.Event.bind(sphere.EventName.Ready, function (overlay) {
+                map.Overlays.add(polyline)
+                map.Overlays.add(polygon)
+            });
+        }
+
+        function createPolyline() {
+            map.Overlays.add(polyline);
+        }
+
+        function removePolyline() {
+            map.Overlays.remove(polyline);
+        }
+
+        function createPolygon() {
+            map.Overlays.add(polygon);
+        }
+
+        function removePolygon() {
+            map.Overlays.remove(polygon);
+        }
+    </script>
+</head>
+
+<body onload="init();">
+    <div id="map"></div>
+    <div id="menu">
+        <button onclick="createPolyline()">สร้างเส้น</button>
+        <button onclick="removePolyline()">ลบเส้น</button>
+        <button onclick="createPolygon()">สร้าง polygon</button>
+        <button onclick="removePolygon()">ลบ polygon</button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Map Sample | sphere Map</title>
+    <style type="text/css">
+        /* สร้างแผนที่เต็มหน้าจอ */
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0px;
+            height: 100%;
+        }
+
+        #map {
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript" src="https://api.sphere.gistda.or.th/map/?key=test2022"></script>
+    <script>
+        var map;
+        function init() {
+            map = new sphere.Map({
+                placeholder: document.getElementById('map')
+            });
+
+            map.Event.bind(sphere.EventName.Ready, function (overlay) {
+                map.Ui.DPad.visible(false);
+            });
+        }
+    </script>
+</head>
+
+<body onload="init();">
+    <div id="map"></div>
+</body>
+
+</html>

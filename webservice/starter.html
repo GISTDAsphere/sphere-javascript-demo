@@ -21,19 +21,23 @@
     <script type="text/javascript" src="https://api.sphere.gistda.or.th/map/?key=test2022"></script>
     <script>
         var map
-        var marker = new sphere.Marker({ lon: 101.2, lat: 12.8 });
         function init() {
             map = new sphere.Map({
                 placeholder: document.getElementById('map')
-            });
-
-            map.Event.bind(sphere.EventName.Ready, function (overlay) {
-                map.Overlays.add(marker)
-            });
+            })
+            getUrl()
         }
 
-        function removeMarker() {
-            map.Overlays.remove(marker);
+        function getUrl() {
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+
+            fetch("https://api.sphere.gistda.or.th/services/search/suggest?key=test2022&keyword=กรุงเทพ&limit=10", requestOptions)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
         }
     </script>
 </head>
