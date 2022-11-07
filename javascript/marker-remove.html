@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Map Sample | sphere marker</title>
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0px;
+            height: 100%;
+        }
+
+        #map {
+            height: 80%;
+        }
+
+        #menu {
+            height: 20%;
+        }
+    </style>
+    <script type="text/javascript" src="https://api.sphere.gistda.or.th/map/?key=test2022"></script>
+    <script>
+        var map
+        var loc = { lon: 100.57794206063417, lat: 13.845012647001214 };
+        var marker = new sphere.Marker(loc);
+        var wmts_layer = new sphere.Layer('bluemarble_terrain', {
+            type: sphere.LayerType.WMTS_REST,
+            url: 'https://ms.longdo.com/mapproxy/wmts',
+            srs: 'GLOBAL_WEBMERCATOR',
+        }); 
+
+
+        var rectangle = new sphere.Rectangle({
+            lon: 100.617,
+            lat: 13.896,
+        }, {
+            width: 2, height: 1
+        }, {
+            editable: true
+        });
+
+        function init() {
+            map = new sphere.Map({
+                placeholder: document.getElementById('map'),
+                location: loc
+            });
+
+            map.Event.bind(sphere.EventName.Ready, function (overlay) {
+                // map.Layers.insert('', wmts_layer);
+                map.Ui.Toolbar.visible(true)
+            });
+
+            map.Event.bind(sphere.EventName.Rotate, function(location) {
+                console.log(map.rotate());
+            });
+
+            map.Event.bind(sphere.EventName.OverlayClick, function (obj) {
+                alert(obj)
+            });
+        }
+
+        function createMarker() {
+            map.Overlays.add(marker);
+        }
+
+        function removeMarker() {
+            map.Overlays.remove(marker);
+        }
+
+        function createPolygon() {
+            map.Overlays.add(rectangle);
+        }
+
+        function removePolygon() {
+            map.Overlays.remove(rectangle);
+        }
+    </script>
+</head>
+
+<body onload="init();">
+    <div id="map"></div>
+    <div id="menu">
+        <button onclick="createMarker()">สร้างหมุด</button>
+        <button onclick="removeMarker()">ลบหมุด</button>
+        <button onclick="createPolygon()">สร้างรูปหลายเหลี่ยม</button>
+        <button onclick="removePolygon()">ลบรูปหลายเหลี่ยม</button>
+    </div>
+</body>
+
+</html>

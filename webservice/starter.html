@@ -21,6 +21,7 @@
     <script type="text/javascript" src="https://api.sphere.gistda.or.th/map/?key=test2022"></script>
     <script>
         var map
+        var jsonObj
         function init() {
             map = new sphere.Map({
                 placeholder: document.getElementById('map')
@@ -35,8 +36,8 @@
             };
 
             fetch("https://api.sphere.gistda.or.th/services/search/suggest?key=test2022&keyword=กรุงเทพ&limit=10", requestOptions)
-                .then(response => response.json())
-                .then(result => console.log(result))
+                .then(response => response.json(),)
+                .then(result => jsonObj = result)
                 .catch(error => console.log('error', error));
         }
     </script>
